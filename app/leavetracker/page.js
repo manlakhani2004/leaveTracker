@@ -8,7 +8,7 @@ import Modal from "../_components/Modal";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { toast } from "react-toastify";
-import { calculateDays, getUpcommingLeaves } from "../_lib/utilities"
+import { calculateDays } from "../_lib/utilities"
 import { useRouter } from "next/navigation";
 
 
@@ -84,6 +84,21 @@ export default function LeaveTracker() {
         toast.success("Leave Requested Successfully..")
         setopen(false);
     }
+    const getUpcommingLeaves = () => {
+    const allLeavesRequests = JSON.parse(localStorage.getItem("leaveRequests"));
+    const filterByUser = allLeavesRequests.filter((leave) => leave.employeeName == employee.username)
+    // console.log(filterByUser);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const upcomingLeaves = filterByUser.filter(leave => {
+        const fromDate = new Date(leave.fromDate);
+        fromDate.setHours(0, 0, 0, 0);
+        return fromDate >= today;
+    });
+
+    return upcomingLeaves;
+}
 
     return (
         <div className="min-h-screen bg-slate-800">
@@ -105,7 +120,7 @@ export default function LeaveTracker() {
                     <h2 className="font-semibold text-2xl sm:text-3xl py-3 text-blue-300">
                         Upcoming Leaves
                     </h2>
-                    <UpcommingLeaves upcomingLeavesHandler={getUpcommingLeaves} upcomingLeaves={upcomingLeaves} setUpcomingLeaves={setUpcomingLeaves} employee={employee} />
+                    <UpcommingLeaves upcomingLeavesHandler={getUpcommingLeaves} upcomingLeaves={upcomingLeaves} setUpcomingLeaves={setUpcomingLeaves}  />
                 </div>
             </div>
 

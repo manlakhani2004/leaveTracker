@@ -1,12 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
 
-export default function UpcommingLeaves({ upcomingLeavesHandler, upcomingLeaves, setUpcomingLeaves,employee }) {
+export default function UpcommingLeaves({ upcomingLeavesHandler, upcomingLeaves, setUpcomingLeaves }) {
 
-  const allLeavesRequests = JSON.parse(localStorage.getItem("leaveRequests"));
-  // console.log(allLeavesRequests);
   useEffect(() => {
-    setUpcomingLeaves(upcomingLeavesHandler(allLeavesRequests,employee));
+    setUpcomingLeaves(upcomingLeavesHandler());
   }, [])
   return (
     <div className="overflow-x-auto bg-slate-800 rounded-xl shadow-xl border border-slate-700">

@@ -34,7 +34,7 @@ export const upcomingLeaves = [
 ];
 
 
-  export const leaveRequests = [
+export const leaveRequests = [
     {
       id: 1,
       employeeName: "Rahul Sharma",
